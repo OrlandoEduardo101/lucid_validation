@@ -6,6 +6,10 @@ import '../lucid_validation.dart';
 abstract class LucidValidator<E> {
   final List<LucidValidationBuilder<dynamic, E>> _builders = [];
 
+  addBuilder(LucidValidationBuilder<dynamic, E> builder) {
+    this._builders.add(builder);
+  }
+
   /// Registers a validation rule for a specific property of the entity.
   ///
   /// [func] is a function that selects the property from the entity [E].
@@ -22,7 +26,7 @@ abstract class LucidValidator<E> {
       TProp Function(E entity) selector,
       {required String key,
       String label = ''}) {
-    final builder = _LucidValidationBuilder<TProp, E>(key, label, selector);
+    final builder = _LucidValidationBuilder<TProp, E>(key, label, selector, this);
     _builders.add(builder);
 
     return builder;
@@ -89,10 +93,14 @@ abstract class LucidValidator<E> {
   /// }
   /// ```
   ValidationResult validate(E entity) {
-    final exceptions =
-        _builders.fold(<ValidationException>[], (previousErrors, builder) {
-      return previousErrors..addAll(builder.executeRules(entity));
-    });
+    final List<ValidationException> exceptions = [];
+
+    for (var builder in _builders) {
+      exceptions.addAll(builder.executeRules(entity));
+      if(builder.getMode() == CascadeMode.stopOnFirstFailure && exceptions.isNotEmpty) {
+        break;
+      }
+    }
 
     return ValidationResult(
       isValid: exceptions.isEmpty,
@@ -103,5 +111,5 @@ abstract class LucidValidator<E> {
 
 class _LucidValidationBuilder<TProp, Entity>
     extends LucidValidationBuilder<TProp, Entity> {
-  _LucidValidationBuilder(super.key, super.label, super.selector);
+  _LucidValidationBuilder(super.key, super.label, super.selector, super.lucid);
 }

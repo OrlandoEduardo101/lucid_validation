@@ -22,8 +22,8 @@ extension IsNotNullValidation<T> on SimpleValidationBuilder<T?> {
   /// String format args:
   /// - **{PropertyName}**: The name of the property.
   ///
-  SimpleValidationBuilder<T?> isNotNull({String? message, String? code}) {
-    return use(
+  SimpleValidationBuilder<String> isNotNull({String? message, String? code}) {
+    return useNotNull(
       (value, entity) {
         if (value != null) return null;
 

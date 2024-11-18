@@ -9,9 +9,11 @@ void main() {
 
     validator
         .ruleFor((e) => e.cpf, key: 'cpf') //
+        .isNotNull()
+        .notEmpty()
         .validCPF();
 
-    final user = UserModel()..cpf = '1';
+    final user = UserModel()..cpf =  null;
 
     final result = validator.validate(user);
 
@@ -21,6 +23,6 @@ void main() {
 
     final error = result.exceptions.first;
 
-    expect(error.message, "'cpf' is not a valid CPF.");
+    expect(error.message, "'cpf' must not be null.");
   });
 }

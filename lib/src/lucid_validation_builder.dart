@@ -56,13 +56,14 @@ abstract class LucidValidationBuilder<TProp, Entity> {
   final List<RuleFunc<Entity>> _rules = [];
   var _mode = CascadeMode.continueExecution;
   LucidValidator<TProp>? _nestedValidator;
+  LucidValidator _lucid;
 
   bool Function(Entity entity)? _condition;
 
   /// Creates a [LucidValidationBuilder] instance with an optional [key].
   ///
   /// The [key] can be used to identify this specific validation in a larger validation context.
-  LucidValidationBuilder(this.key, this.label, this._selector);
+  LucidValidationBuilder(this.key, this.label, this._selector, this._lucid);
 
   String? Function([String?]) nestedByField(Entity entity, String key) {
     if (_nestedValidator == null) {
@@ -152,6 +153,26 @@ abstract class LucidValidationBuilder<TProp, Entity> {
   ) {
     _rules.add((entity) => rule(_selector(entity), entity));
     return this;
+  }
+
+  LucidValidationBuilder<T, Entity> useNotNull<T extends Object>(
+      ValidationException? Function(TProp value, Entity entity) rule) {
+    _rules.add((entity) => rule(_selector(entity), entity));
+
+    final builder =
+        _LucidValidationBuilder<T, Entity>(key, label, (Entity entity) {
+      final value = _selector(entity) as T;
+      return value;
+    }, _lucid);
+
+    this._mode = CascadeMode.stopOnFirstFailure;
+
+    _lucid.addBuilder(builder);
+    return builder;
+  }
+
+  CascadeMode getMode() {
+    return this._mode;
   }
 
   /// Sets the [CascadeMode] for the validation rules associated with this property.
@@ -260,4 +281,9 @@ abstract class LucidValidationBuilder<TProp, Entity> {
 
     return exceptions;
   }
+}
+
+class _LucidValidationBuilder<TProp, Entity>
+    extends LucidValidationBuilder<TProp, Entity> {
+  _LucidValidationBuilder(super.key, super.label, super.selector, super.lucid);
 }

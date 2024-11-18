@@ -8,7 +8,7 @@ class UserModel {
   String? description;
   int age = 0;
   String phone = '';
-  String cpf = '';
+  String? cpf = '';
 }
 
 class UserValidator extends LucidValidator<UserModel> {
@@ -27,6 +27,7 @@ class UserValidator extends LucidValidator<UserModel> {
         .customValidPhone('Phone invalid format');
 
     ruleFor((user) => user.cpf, key: 'cpf') //
+        .isNotNull()
         .notEmpty()
         .validCPF();
   }
