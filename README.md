@@ -125,6 +125,8 @@ Here’s a complete list of available validators you can use:
 - **inclusiveBetween**: Checks if the datetime value is between two datetime values, including both bounds.
 - **exclusiveBetween**: Checks if the datetime value is between two datetime values, excluding both bounds.
 
+**Observation: for almost all validators, there is an equivalent with the `OrNull` suffix. Example: `validEmailOrNull`**
+
 ## Usage with Flutter
 
 If you’re using the `lucid_validation` package in a Flutter app, integrating with `TextFormField` is straightforward.
@@ -200,7 +202,7 @@ Example:
 ```dart
 ruleFor((user) => user.phoneNumber, key: 'phoneNumber')
     .when((user) => user.requiresPhoneNumber)
-    .must((value) => value.isNotEmpty, 'Phone number is required', 'phone_required')
+    .isEmpty()
     .must((value) => value.length == 10, 'Phone number must be 10 digits', 'phone_length');
 ```
 

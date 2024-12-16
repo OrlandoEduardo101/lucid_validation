@@ -30,4 +30,18 @@ void main() {
 
     expect(error.message, "'cnpj' is not a valid CNPJ.");
   });
+
+  test('valid cnpj validation ...', () {
+    final validator = TestLucidValidator<CustomerNullable>();
+
+    validator
+        .ruleFor((e) => e.cnpj, key: 'cnpj') //
+        .validCNPJOrNull();
+
+    var customer = CustomerNullable()..cnpj = null;
+
+    final result = validator.validate(customer);
+
+    expect(result.isValid, true);
+  });
 }

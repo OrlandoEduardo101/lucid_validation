@@ -18,4 +18,17 @@ void main() {
     expect(result.exceptions.length, 1);
     expect(result.exceptions.first.message, "'password' must not be empty.");
   });
+
+  test('not empty validation or null...', () {
+    final validator = TestLucidValidator<UserNullableModel>();
+    validator
+        .ruleFor((user) => user.password, key: 'password') //
+        .notEmptyOrNull();
+
+    final user = UserNullableModel()..password = null;
+
+    final result = validator.validate(user);
+
+    expect(result.isValid, true);
+  });
 }

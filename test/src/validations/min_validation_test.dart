@@ -19,4 +19,17 @@ void main() {
     expect(result.exceptions.first.message,
         "'age' must be greater than or equal to 18. You entered 17.");
   });
+
+  test('min validation or null...', () {
+    final validator = TestLucidValidator<UserNullableModel>();
+    validator
+        .ruleFor((user) => user.age, key: 'age') //
+        .minOrNull(18);
+
+    final user = UserNullableModel()..age = null;
+
+    final result = validator.validate(user);
+
+    expect(result.isValid, true);
+  });
 }

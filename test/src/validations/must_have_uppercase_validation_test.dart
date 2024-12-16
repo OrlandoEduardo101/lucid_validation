@@ -19,4 +19,17 @@ void main() {
     expect(result.exceptions.first.message,
         "'password' must have at least one uppercase letter.");
   });
+
+  test('must have uppercase validation or null...', () {
+    final validator = TestLucidValidator<UserNullableModel>();
+    validator
+        .ruleFor((user) => user.password, key: 'password') //
+        .mustHaveUppercaseOrNull();
+
+    final user = UserNullableModel()..password = null;
+
+    final result = validator.validate(user);
+
+    expect(result.isValid, true);
+  });
 }

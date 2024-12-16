@@ -22,4 +22,19 @@ void main() {
     expect(result.exceptions.first.message,
         "'end' must be less than date '${now.toString()}'.");
   });
+
+  test('less than validation ...', () {
+    final validator = TestLucidValidator<EventNullableModel>();
+    final now = DateTime.now();
+
+    validator
+        .ruleFor((event) => event.end, key: 'end') //
+        .lessThanOrNull(now);
+
+    final event = EventNullableModel()..end = null;
+
+    final result = validator.validate(event);
+
+    expect(result.isValid, true);
+  });
 }

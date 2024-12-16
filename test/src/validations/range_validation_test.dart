@@ -23,4 +23,18 @@ void main() {
 
     expect(error.message, "'age' must be between 18 and 60. You entered 17.");
   });
+
+  test('range validation ...', () {
+    final validator = TestLucidValidator<UserNullableModel>();
+
+    validator
+        .ruleFor((e) => e.age, key: 'age') //
+        .rangeOrNull(18, 60);
+
+    var user = UserNullableModel()..age = null;
+
+    final result = validator.validate(user);
+
+    expect(result.isValid, true);
+  });
 }

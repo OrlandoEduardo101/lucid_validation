@@ -4,7 +4,7 @@ part of 'validations.dart';
 ///
 /// This extension adds an `isNotNull` method that can be used to ensure that a value
 /// is not null.
-extension IsNotNullValidation<T> on SimpleValidationBuilder<T?> {
+extension IsNotNullValidation<T extends Object> on SimpleValidationBuilder<T?> {
   /// Adds a validation rule that checks if the value is not null.
   ///
   /// [message] is the error message returned if the validation fails.
@@ -22,7 +22,7 @@ extension IsNotNullValidation<T> on SimpleValidationBuilder<T?> {
   /// String format args:
   /// - **{PropertyName}**: The name of the property.
   ///
-  SimpleValidationBuilder<String> isNotNull({String? message, String? code}) {
+  SimpleValidationBuilder<T> isNotNull({String? message, String? code}) {
     return useNotNull(
       (value, entity) {
         if (value != null) return null;

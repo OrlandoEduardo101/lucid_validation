@@ -62,8 +62,9 @@ extension ValidCEPNullableValidation on SimpleValidationBuilder<String?> {
   ///
   SimpleValidationBuilder<String?> validCEP({String? message, String? code}) {
     return use((value, entity) {
-      if (value != null && RegExp(r'^\d{5}-?\d{3}$').hasMatch(value))
+      if (value != null && RegExp(r'^\d{5}-?\d{3}$').hasMatch(value)) {
         return null;
+      }
 
       final currentCode = code ?? Language.code.validCEP;
       final currentMessage = LucidValidation.global.languageManager.translate(

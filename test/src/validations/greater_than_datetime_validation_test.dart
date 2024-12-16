@@ -21,4 +21,19 @@ void main() {
     expect(result.exceptions.first.message,
         "'start' must be greater than date '${now.toString()}'.");
   });
+
+  test('greater than validation or null ...', () {
+    final validator = TestLucidValidator<EventNullableModel>();
+    final now = DateTime.now();
+
+    validator
+        .ruleFor((event) => event.start, key: 'start') //
+        .greaterThanOrNull(now);
+
+    final event = EventNullableModel()..start = null;
+
+    final result = validator.validate(event);
+
+    expect(result.isValid, true);
+  });
 }

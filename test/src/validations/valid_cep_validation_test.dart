@@ -26,4 +26,18 @@ void main() {
 
     expect(error.message, "'postcode' is not a valid CEP.");
   });
+
+  test('valid cep validation or null ...', () {
+    final validator = TestLucidValidator<AddressNullable>();
+
+    validator
+        .ruleFor((e) => e.postcode, key: 'postcode') //
+        .validCEPOrNull();
+
+    var customer = AddressNullable();
+
+    final result = validator.validate(customer);
+
+    expect(result.isValid, true);
+  });
 }

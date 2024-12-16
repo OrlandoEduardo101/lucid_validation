@@ -23,4 +23,18 @@ void main() {
 
     expect(error.message, "'cpf' is not a valid CPF.");
   });
+
+  test('valid cpf validation or null ...', () {
+    final validator = TestLucidValidator<UserNullableModel>();
+
+    validator
+        .ruleFor((e) => e.cpf, key: 'cpf') //
+        .validCPFOrNull();
+
+    final user = UserNullableModel()..cpf =  null;
+
+    final result = validator.validate(user);
+
+    expect(result.isValid, true);
+  });
 }
