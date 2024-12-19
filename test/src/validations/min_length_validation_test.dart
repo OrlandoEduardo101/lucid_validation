@@ -19,4 +19,17 @@ void main() {
     expect(result.exceptions.first.message,
         "The length of 'password' must be at least 8 characters. You entered 6 characters.");
   });
+
+  test('max length validation or null...', () {
+    final validator = TestLucidValidator<UserNullableModel>();
+    validator
+        .ruleFor((user) => user.password, key: 'password') //
+        .minLengthOrNull(8);
+
+    final user = UserNullableModel()..password = null;
+
+    final result = validator.validate(user);
+
+    expect(result.isValid, true);
+  });
 }

@@ -8,7 +8,17 @@ class UserModel {
   String? description;
   int age = 0;
   String phone = '';
-  String cpf = '';
+  String? cpf = '';
+}
+
+class UserNullableModel {
+  String? email = '';
+  String? password = '';
+  String? confirmPassword = '';
+  String? description;
+  int? age = 0;
+  String phone = '';
+  String? cpf = '';
 }
 
 class UserValidator extends LucidValidator<UserModel> {
@@ -27,6 +37,7 @@ class UserValidator extends LucidValidator<UserModel> {
         .customValidPhone('Phone invalid format');
 
     ruleFor((user) => user.cpf, key: 'cpf') //
+        .isNotNull()
         .notEmpty()
         .validCPF();
   }
@@ -106,6 +117,11 @@ class Address {
   });
 }
 
+class AddressNullable {
+  String? country;
+  String? postcode;
+}
+
 class AddressValidator extends LucidValidator<Address> {
   AddressValidator() {
     ruleFor((address) => address.country, key: 'country') //
@@ -126,6 +142,12 @@ class Customer {
     required this.address,
     required this.cnpj,
   });
+}
+
+class CustomerNullable {
+  String? name;
+  Address? address;
+  String? cnpj;
 }
 
 class CustomerValidator extends LucidValidator<Customer> {
@@ -150,8 +172,18 @@ class EventModel {
   DateTime dateEvent = DateTime.now();
 }
 
+class EventNullableModel {
+  DateTime? start = DateTime.now();
+  DateTime? end = DateTime.now();
+  DateTime? dateEvent = DateTime.now();
+}
+
 class CreditCardModel {
   String number = '';
+}
+
+class CreditCardNullableModel {
+  String? number;
 }
 
 class CreditCardValidator extends LucidValidator<CreditCardModel> {

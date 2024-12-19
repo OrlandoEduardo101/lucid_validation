@@ -47,3 +47,91 @@ extension MaxLengthValidation on SimpleValidationBuilder<String> {
     );
   }
 }
+
+extension MaxLengthNullableValidation on SimpleValidationBuilder<String?> {
+  /// Adds a validation rule that checks if the length of a [String?] is less than or equal to [num].
+  ///
+  /// [num] is the maximum allowed length for the string.
+  /// [message] is the error message returned if the validation fails. Defaults to "Must be at most $num characters long".
+  /// [code] is an optional error code for translation purposes.
+  ///
+  /// Returns the [LucidValidationBuilder] to allow for method chaining.
+  ///
+  /// Example:
+  /// ```dart
+  /// ...
+  /// ruleFor((user) => user.username, key: 'username') // user.username is nullable
+  ///   .maxLength(10);
+  /// ```
+  ///
+  /// String format args:
+  /// - **{PropertyName}**: The name of the property.
+  /// - **{MaxLength}**: The value to compare against.
+  /// - **{TotalLength}**: total characters entered.
+  ///
+  SimpleValidationBuilder<String?> maxLength(int num,
+      {String? message, String? code}) {
+    return use(
+      (value, entity) {
+        if (value != null && value.length <= num) return null;
+
+        final currentCode = code ?? Language.code.maxLength;
+        final currentMessage = LucidValidation.global.languageManager.translate(
+          currentCode,
+          parameters: {
+            'PropertyName': label.isNotEmpty ? label : key,
+            'MaxLength': '$num',
+            'TotalLength': '${value != null ? value.length : 0}',
+          },
+          defaultMessage: message,
+        );
+
+        return ValidationException(message: currentMessage, code: currentCode);
+      },
+    );
+  }
+}
+
+extension MaxLengthOrNullableValidation on SimpleValidationBuilder<String?> {
+  /// Adds a validation rule that checks if the length of a [String?] is less than or equal to [num] or [null].
+  ///
+  /// [num] is the maximum allowed length for the string.
+  /// [message] is the error message returned if the validation fails. Defaults to "Must be at most $num characters long".
+  /// [code] is an optional error code for translation purposes.
+  ///
+  /// Returns the [LucidValidationBuilder] to allow for method chaining.
+  ///
+  /// Example:
+  /// ```dart
+  /// ...
+  /// ruleFor((user) => user.username, key: 'username')
+  ///   .maxLengthOrNull(10);
+  /// ```
+  ///
+  /// String format args:
+  /// - **{PropertyName}**: The name of the property.
+  /// - **{MaxLength}**: The value to compare against.
+  /// - **{TotalLength}**: total characters entered.
+  ///
+  SimpleValidationBuilder<String?> maxLengthOrNull(int num,
+      {String? message, String? code}) {
+    return use(
+      (value, entity) {
+        if (value == null || value.length <= num) return null;
+
+        final currentCode = code ?? Language.code.maxLength;
+        final currentMessage = LucidValidation.global.languageManager.translate(
+          currentCode,
+          parameters: {
+            'PropertyName': label.isNotEmpty ? label : key,
+            'MaxLength': '$num',
+            'TotalLength': '${value.length}',
+          },
+          defaultMessage: message,
+        );
+
+        return ValidationException(message: currentMessage, code: currentCode);
+      },
+    );
+  }
+}

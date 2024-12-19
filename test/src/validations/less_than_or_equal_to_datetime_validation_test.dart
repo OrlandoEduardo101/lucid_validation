@@ -37,4 +37,19 @@ void main() {
 
     expect(result.isValid, true);
   });
+
+  test('less than or equal to validation or null ...', () {
+    final validator = TestLucidValidator<EventNullableModel>();
+    final now = DateTime.now();
+
+    validator
+        .ruleFor((event) => event.end, key: 'end') //
+        .lessThanOrEqualToOrNull(now);
+
+    final event = EventNullableModel()..end = null;
+
+    final result = validator.validate(event);
+
+    expect(result.isValid, true);
+  });
 }

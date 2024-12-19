@@ -19,4 +19,17 @@ void main() {
     expect(result.exceptions.first.message,
         "'email' is not in the correct format.");
   });
+
+  test('matches pattern validation or null...', () {
+    final validator = TestLucidValidator<UserNullableModel>();
+    validator
+        .ruleFor((user) => user.email, key: 'email') //
+        .matchesPatternOrNull(r'^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$');
+
+    final user = UserNullableModel()..email = null;
+
+    final result = validator.validate(user);
+
+    expect(result.isValid, true);
+  });
 }

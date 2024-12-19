@@ -19,4 +19,17 @@ void main() {
     expect(result.exceptions.first.message,
         "'password' must have at least one non-alphanumeric character.");
   });
+
+  test('must have special character validation or null...', () {
+    final validator = TestLucidValidator<UserNullableModel>();
+    validator
+        .ruleFor((user) => user.password, key: 'password') //
+        .mustHaveSpecialCharacterOrNull();
+
+    final user = UserNullableModel()..password = null;
+
+    final result = validator.validate(user);
+
+    expect(result.isValid, true);
+  });
 }

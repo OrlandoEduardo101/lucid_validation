@@ -22,4 +22,18 @@ void main() {
 
     expect(error.message, r"'description' must not be null.");
   });
+
+  test('is not null validation is valid...', () {
+    final validator = TestLucidValidator<UserModel>();
+    validator
+        .ruleFor((e) => e.description, key: 'description') //
+        .isNotNull()
+        .maxLength(4);
+
+    final user = UserModel()..description = 'desc';
+
+    final result = validator.validate(user);
+
+    expect(result.isValid, true);
+  });
 }

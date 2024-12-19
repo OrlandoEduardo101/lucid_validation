@@ -20,4 +20,17 @@ void main() {
 
     expect(result.exceptions.first.message, "'email' must be empty.");
   });
+
+  test('is empty validation or null...', () {
+    final validator = TestLucidValidator<UserNullableModel>();
+    validator
+        .ruleFor((user) => user.email, key: 'email') //
+        .isEmptyOrNull();
+
+    final user = UserNullableModel()..email = null;
+
+    final result = validator.validate(user);
+
+    expect(result.isValid, true);
+  });
 }

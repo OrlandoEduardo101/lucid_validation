@@ -66,4 +66,22 @@ void main() {
 
     expect(result.isValid, true);
   });
+
+  test(
+      'must return valid exclusively between validation when the event date is null',
+          () {
+        final validator = TestLucidValidator<EventNullableModel>();
+        final now = DateTime.now();
+        final afterTomorrow = now.add(Duration(days: 2));
+
+        validator
+            .ruleFor((event) => event.dateEvent, key: 'dateEvent') //
+            .exclusiveBetweenOrNull(start: now, end: afterTomorrow);
+
+        final event = EventNullableModel()..dateEvent = null;
+
+        final result = validator.validate(event);
+
+        expect(result.isValid, true);
+      });
 }

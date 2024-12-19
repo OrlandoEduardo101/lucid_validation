@@ -23,4 +23,18 @@ void main() {
 
     expect(error.message, "'number' is not a valid credit card number.");
   });
+
+  test('valid creditcard validation or null ...', () {
+    final validator = TestLucidValidator<CreditCardNullableModel>();
+
+    validator
+        .ruleFor((e) => e.number, key: 'number') //
+        .validCreditCardOrNull();
+
+    final creditCard = CreditCardNullableModel()..number = null;
+
+    final result = validator.validate(creditCard);
+
+    expect(result.isValid, true);
+  });
 }

@@ -39,3 +39,75 @@ extension IsEmptyValidation on SimpleValidationBuilder<String> {
     });
   }
 }
+
+extension IsEmptyNullableValidation on SimpleValidationBuilder<String?> {
+  /// Adds a validation rule that checks if the [String?] is empty.
+  ///
+  /// [message] is the error message returned if the validation fails.
+  /// [code] is an optional error code for translation purposes.
+  ///
+  /// Returns the [LucidValidationBuilder] to allow for method chaining.
+  ///
+  /// Example:
+  /// ```dart
+  /// ...
+  /// ruleFor((user) => user.name, key: 'name') // user.name is nullable
+  ///   .isEmpty();
+  /// ```
+  ///
+  /// String format args:
+  /// - **{PropertyName}**: The name of the property.
+  ///
+  SimpleValidationBuilder<String?> isEmpty({String? message, String? code}) {
+    return use((value, entity) {
+      if (value != null && value.isEmpty) return null;
+
+      final currentCode = code ?? Language.code.isEmpty;
+      final currentMessage = LucidValidation.global.languageManager.translate(
+        currentCode,
+        parameters: {
+          'PropertyName': label.isNotEmpty ? label : key,
+        },
+        defaultMessage: message,
+      );
+
+      return ValidationException(message: currentMessage, code: currentCode);
+    });
+  }
+}
+
+extension IsEmptyOrNullableValidation on SimpleValidationBuilder<String?> {
+  /// Adds a validation rule that checks if the [String?] is empty.
+  ///
+  /// [message] is the error message returned if the validation fails.
+  /// [code] is an optional error code for translation purposes.
+  ///
+  /// Returns the [LucidValidationBuilder] to allow for method chaining.
+  ///
+  /// Example:
+  /// ```dart
+  /// ...
+  /// ruleFor((user) => user.name, key: 'name')
+  ///   .isEmptyOrNull();
+  /// ```
+  ///
+  /// String format args:
+  /// - **{PropertyName}**: The name of the property.
+  ///
+  SimpleValidationBuilder<String?> isEmptyOrNull({String? message, String? code}) {
+    return use((value, entity) {
+      if (value == null || value.isEmpty) return null;
+
+      final currentCode = code ?? Language.code.isEmpty;
+      final currentMessage = LucidValidation.global.languageManager.translate(
+        currentCode,
+        parameters: {
+          'PropertyName': label.isNotEmpty ? label : key,
+        },
+        defaultMessage: message,
+      );
+
+      return ValidationException(message: currentMessage, code: currentCode);
+    });
+  }
+}
