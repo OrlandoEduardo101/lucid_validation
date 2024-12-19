@@ -1,3 +1,7 @@
+## 1.2.0
+
+* Added support nullable
+
 ## 1.1.0
 
 * Added Label
