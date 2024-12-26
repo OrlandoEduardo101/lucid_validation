@@ -333,9 +333,9 @@ LucidValidation.global.languageManager = CustomLanguageManager();
 
 ## Flutter Configuration
 
-Podemos criar um `Delegate` para automatizar a internacionalização diretamente no Flutter.
+You can create a `Delegate` to automate internationalization directly in Flutter.
 
-Para criar um `Delegate` siga esses passos:
+To create a `Delegate` follow these steps:
 
 ```dart
 class LucidLocalizationDelegate extends LocalizationsDelegate<Culture> {
@@ -366,7 +366,7 @@ class LucidLocalizationDelegate extends LocalizationsDelegate<Culture> {
 }
 ```
 
-Agora basta adicionar no `MaterialApp` ou `CupertinoApp`:
+Now just add it to the `MaterialApp` or `CupertinoApp`:
 
 ```dart
   @override
