@@ -1,3 +1,7 @@
+## 1.2.1
+
+* Added getExceptions and getExceptionsByKey
+
 ## 1.2.0
 
 * Added support nullable
