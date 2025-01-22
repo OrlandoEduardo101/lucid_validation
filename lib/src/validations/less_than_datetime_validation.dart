@@ -42,12 +42,17 @@ extension LessThanDatetimeValidation on SimpleValidationBuilder<DateTime> {
         defaultMessage: message,
       );
 
-      return ValidationException(message: currentMessage, code: currentCode);
+      return ValidationException(
+        message: currentMessage,
+        code: currentCode,
+        key: key,
+      );
     });
   }
 }
 
-extension LessThanDatetimeNullableValidation on SimpleValidationBuilder<DateTime?> {
+extension LessThanDatetimeNullableValidation
+    on SimpleValidationBuilder<DateTime?> {
   /// Adds a validation rule that checks if the [DateTime?] is greater than [comparison].
   ///
   /// [comparison] is the date and time value must be less than.
@@ -68,10 +73,10 @@ extension LessThanDatetimeNullableValidation on SimpleValidationBuilder<DateTime
   /// - **{ComparisonValue}**: The value to compare against.
   ///
   SimpleValidationBuilder<DateTime?> lessThan(
-      DateTime comparison, {
-        String? message,
-        String? code,
-      }) {
+    DateTime comparison, {
+    String? message,
+    String? code,
+  }) {
     return use((value, entity) {
       if (value != null && value.isBefore(comparison)) return null;
 
@@ -85,12 +90,17 @@ extension LessThanDatetimeNullableValidation on SimpleValidationBuilder<DateTime
         defaultMessage: message,
       );
 
-      return ValidationException(message: currentMessage, code: currentCode);
+      return ValidationException(
+        message: currentMessage,
+        code: currentCode,
+        key: key,
+      );
     });
   }
 }
 
-extension LessThanDatetimeOrNullableValidation on SimpleValidationBuilder<DateTime?> {
+extension LessThanDatetimeOrNullableValidation
+    on SimpleValidationBuilder<DateTime?> {
   /// Adds a validation rule that checks if the [DateTime?] is greater than [comparison] or [null].
   ///
   /// [comparison] is the date and time value must be less than.
@@ -111,10 +121,10 @@ extension LessThanDatetimeOrNullableValidation on SimpleValidationBuilder<DateTi
   /// - **{ComparisonValue}**: The value to compare against.
   ///
   SimpleValidationBuilder<DateTime?> lessThanOrNull(
-      DateTime comparison, {
-        String? message,
-        String? code,
-      }) {
+    DateTime comparison, {
+    String? message,
+    String? code,
+  }) {
     return use((value, entity) {
       if (value == null || value.isBefore(comparison)) return null;
 
@@ -128,7 +138,11 @@ extension LessThanDatetimeOrNullableValidation on SimpleValidationBuilder<DateTi
         defaultMessage: message,
       );
 
-      return ValidationException(message: currentMessage, code: currentCode);
+      return ValidationException(
+        message: currentMessage,
+        code: currentCode,
+        key: key,
+      );
     });
   }
 }

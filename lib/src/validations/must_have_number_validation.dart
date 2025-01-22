@@ -38,7 +38,11 @@ extension MustHaveNumbersValidation on SimpleValidationBuilder<String> {
           defaultMessage: message,
         );
 
-        return ValidationException(message: currentMessage, code: currentCode);
+        return ValidationException(
+          message: currentMessage,
+          code: currentCode,
+          key: key,
+        );
       },
     );
   }
@@ -81,7 +85,11 @@ extension MustHaveNumbersNullableValidation
           defaultMessage: message,
         );
 
-        return ValidationException(message: currentMessage, code: currentCode);
+        return ValidationException(
+          message: currentMessage,
+          code: currentCode,
+          key: key,
+        );
       },
     );
   }
@@ -123,7 +131,11 @@ extension MustHaveNumbersOrNullableValidation
           defaultMessage: message,
         );
 
-        return ValidationException(message: currentMessage, code: currentCode);
+        return ValidationException(
+          message: currentMessage,
+          code: currentCode,
+          key: key,
+        );
       },
     );
   }

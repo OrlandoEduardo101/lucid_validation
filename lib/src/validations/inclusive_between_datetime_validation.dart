@@ -36,7 +36,9 @@ extension InclusiveBetweenDatetimeValidation
     return use((value, entity) {
       if (value.isAfter(start) ||
           value.isAtSameMomentAs(start) && value.isBefore(end) ||
-          value.isAtSameMomentAs(end)) return null;
+          value.isAtSameMomentAs(end)) {
+        return null;
+      }
 
       final currentCode = code ?? Language.code.inclusiveBetweenDatetime;
       final currentMessage = LucidValidation.global.languageManager.translate(
@@ -49,7 +51,11 @@ extension InclusiveBetweenDatetimeValidation
         defaultMessage: message,
       );
 
-      return ValidationException(message: currentMessage, code: currentCode);
+      return ValidationException(
+        message: currentMessage,
+        code: currentCode,
+        key: key,
+      );
     });
   }
 }
@@ -87,7 +93,9 @@ extension InclusiveBetweenDatetimeNullableValidation
       if (value != null &&
           (value.isAfter(start) ||
               value.isAtSameMomentAs(start) && value.isBefore(end) ||
-              value.isAtSameMomentAs(end))) return null;
+              value.isAtSameMomentAs(end))) {
+        return null;
+      }
 
       final currentCode = code ?? Language.code.inclusiveBetweenDatetime;
       final currentMessage = LucidValidation.global.languageManager.translate(
@@ -100,7 +108,11 @@ extension InclusiveBetweenDatetimeNullableValidation
         defaultMessage: message,
       );
 
-      return ValidationException(message: currentMessage, code: currentCode);
+      return ValidationException(
+        message: currentMessage,
+        code: currentCode,
+        key: key,
+      );
     });
   }
 }
@@ -138,7 +150,9 @@ extension InclusiveBetweenDatetimeOrNullableValidation
       if (value == null ||
           (value.isAfter(start) ||
               value.isAtSameMomentAs(start) && value.isBefore(end) ||
-              value.isAtSameMomentAs(end))) return null;
+              value.isAtSameMomentAs(end))) {
+        return null;
+      }
 
       final currentCode = code ?? Language.code.inclusiveBetweenDatetime;
       final currentMessage = LucidValidation.global.languageManager.translate(
@@ -151,7 +165,11 @@ extension InclusiveBetweenDatetimeOrNullableValidation
         defaultMessage: message,
       );
 
-      return ValidationException(message: currentMessage, code: currentCode);
+      return ValidationException(
+        message: currentMessage,
+        code: currentCode,
+        key: key,
+      );
     });
   }
 }

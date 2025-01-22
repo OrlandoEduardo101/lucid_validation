@@ -107,6 +107,32 @@ abstract class LucidValidator<E> {
       exceptions: exceptions,
     );
   }
+
+  List<ValidationException> getExceptions(E entity) {
+    final List<ValidationException> exceptions = [];
+
+    for (var builder in _builders) {
+      exceptions.addAll(builder.executeRules(entity));
+      if(builder.getMode() == CascadeMode.stopOnFirstFailure && exceptions.isNotEmpty) {
+        break;
+      }
+    }
+
+    return exceptions;
+  }
+
+  List<ValidationException> getExceptionsByKey(E entity, String key) {
+    final List<ValidationException> exceptions = [];
+
+    for (var builder in _builders) {
+      exceptions.addAll(builder.executeRules(entity));
+      if(builder.getMode() == CascadeMode.stopOnFirstFailure && exceptions.isNotEmpty) {
+        break;
+      }
+    }
+
+    return exceptions.where((exception) => exception.key == key).toList();
+  }
 }
 
 class _LucidValidationBuilder<TProp, Entity>

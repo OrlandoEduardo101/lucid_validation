@@ -40,7 +40,11 @@ extension LessThanValidation on SimpleValidationBuilder<num> {
           defaultMessage: message,
         );
 
-        return ValidationException(message: currentMessage, code: currentCode);
+        return ValidationException(
+          message: currentMessage,
+          code: currentCode,
+          key: key,
+        );
       },
     );
   }
@@ -69,7 +73,7 @@ extension LessThanNullableValidation on SimpleValidationBuilder<num?> {
   SimpleValidationBuilder<num?> lessThan(num maxValue,
       {String? message, String? code}) {
     return use(
-          (value, entity) {
+      (value, entity) {
         if (value != null && value < maxValue) return null;
 
         final currentCode = code ?? Language.code.lessThan;
@@ -82,7 +86,11 @@ extension LessThanNullableValidation on SimpleValidationBuilder<num?> {
           defaultMessage: message,
         );
 
-        return ValidationException(message: currentMessage, code: currentCode);
+        return ValidationException(
+          message: currentMessage,
+          code: currentCode,
+          key: key,
+        );
       },
     );
   }
@@ -111,7 +119,7 @@ extension LessThanOrNullableValidation on SimpleValidationBuilder<num?> {
   SimpleValidationBuilder<num?> lessThanOrNull(num maxValue,
       {String? message, String? code}) {
     return use(
-          (value, entity) {
+      (value, entity) {
         if (value == null || value < maxValue) return null;
 
         final currentCode = code ?? Language.code.lessThan;
@@ -124,7 +132,11 @@ extension LessThanOrNullableValidation on SimpleValidationBuilder<num?> {
           defaultMessage: message,
         );
 
-        return ValidationException(message: currentMessage, code: currentCode);
+        return ValidationException(
+          message: currentMessage,
+          code: currentCode,
+          key: key,
+        );
       },
     );
   }

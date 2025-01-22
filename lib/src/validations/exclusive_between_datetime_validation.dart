@@ -47,13 +47,17 @@ extension ExclusiveBetweenDatetimeValidation
         defaultMessage: message,
       );
 
-      return ValidationException(message: currentMessage, code: currentCode);
+      return ValidationException(
+        message: currentMessage,
+        code: currentCode,
+        key: key,
+      );
     });
   }
 }
 
 extension ExclusiveBetweenDatetimeNullableValidation
-on SimpleValidationBuilder<DateTime?> {
+    on SimpleValidationBuilder<DateTime?> {
   /// Adds a validation rule that checks if the [DateTime?] is greater than [comparison].
   ///
   /// [start] is the date and time value must be greater than.
@@ -82,7 +86,9 @@ on SimpleValidationBuilder<DateTime?> {
     String? code,
   }) {
     return use((value, entity) {
-      if (value != null && (value.isAfter(start) && value.isBefore(end))) return null;
+      if (value != null && (value.isAfter(start) && value.isBefore(end))) {
+        return null;
+      }
 
       final currentCode = code ?? Language.code.exclusiveBetweenDatetime;
       final currentMessage = LucidValidation.global.languageManager.translate(
@@ -95,13 +101,17 @@ on SimpleValidationBuilder<DateTime?> {
         defaultMessage: message,
       );
 
-      return ValidationException(message: currentMessage, code: currentCode);
+      return ValidationException(
+        message: currentMessage,
+        code: currentCode,
+        key: key,
+      );
     });
   }
 }
 
 extension ExclusiveBetweenDatetimeOrNullableValidation
-on SimpleValidationBuilder<DateTime?> {
+    on SimpleValidationBuilder<DateTime?> {
   /// Adds a validation rule that checks if the [DateTime?] is greater than [comparison] or [null].
   ///
   /// [start] is the date and time value must be greater than.
@@ -130,7 +140,9 @@ on SimpleValidationBuilder<DateTime?> {
     String? code,
   }) {
     return use((value, entity) {
-      if (value == null || (value.isAfter(start) && value.isBefore(end))) return null;
+      if (value == null || (value.isAfter(start) && value.isBefore(end))) {
+        return null;
+      }
 
       final currentCode = code ?? Language.code.exclusiveBetweenDatetime;
       final currentMessage = LucidValidation.global.languageManager.translate(
@@ -143,7 +155,11 @@ on SimpleValidationBuilder<DateTime?> {
         defaultMessage: message,
       );
 
-      return ValidationException(message: currentMessage, code: currentCode);
+      return ValidationException(
+        message: currentMessage,
+        code: currentCode,
+        key: key,
+      );
     });
   }
 }

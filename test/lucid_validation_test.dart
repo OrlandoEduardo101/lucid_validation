@@ -126,4 +126,18 @@ void main() {
     final stringError = validator.byField(customer, 'address')();
     expect(stringError, '\'postcode\' must not be empty.');
   });
+
+  test('getExceptionsByKey', () {
+    var user = UserModel();
+
+    final validator = UserValidator();
+
+    var exceptions = validator.getExceptionsByKey(user, 'email');
+
+    var codes = exceptions.map((exception) => exception.code).toList();
+
+    expect(exceptions.length, 2);
+    expect(codes[0], 'notEmpty');
+    expect(codes[1], 'validEmail');
+  });
 }

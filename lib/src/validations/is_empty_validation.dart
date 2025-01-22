@@ -35,7 +35,11 @@ extension IsEmptyValidation on SimpleValidationBuilder<String> {
         defaultMessage: message,
       );
 
-      return ValidationException(message: currentMessage, code: currentCode);
+      return ValidationException(
+        message: currentMessage,
+        code: currentCode,
+        key: key,
+      );
     });
   }
 }
@@ -71,7 +75,11 @@ extension IsEmptyNullableValidation on SimpleValidationBuilder<String?> {
         defaultMessage: message,
       );
 
-      return ValidationException(message: currentMessage, code: currentCode);
+      return ValidationException(
+        message: currentMessage,
+        code: currentCode,
+        key: key,
+      );
     });
   }
 }
@@ -94,7 +102,8 @@ extension IsEmptyOrNullableValidation on SimpleValidationBuilder<String?> {
   /// String format args:
   /// - **{PropertyName}**: The name of the property.
   ///
-  SimpleValidationBuilder<String?> isEmptyOrNull({String? message, String? code}) {
+  SimpleValidationBuilder<String?> isEmptyOrNull(
+      {String? message, String? code}) {
     return use((value, entity) {
       if (value == null || value.isEmpty) return null;
 
@@ -107,7 +116,11 @@ extension IsEmptyOrNullableValidation on SimpleValidationBuilder<String?> {
         defaultMessage: message,
       );
 
-      return ValidationException(message: currentMessage, code: currentCode);
+      return ValidationException(
+        message: currentMessage,
+        code: currentCode,
+        key: key,
+      );
     });
   }
 }

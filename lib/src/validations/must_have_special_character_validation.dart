@@ -39,7 +39,11 @@ extension MustHaveSpecialCharacterValidation
           defaultMessage: message,
         );
 
-        return ValidationException(message: currentMessage, code: currentCode);
+        return ValidationException(
+          message: currentMessage,
+          code: currentCode,
+          key: key,
+        );
       },
     );
   }
@@ -82,7 +86,11 @@ extension MustHaveSpecialCharacterNullableValidation
           defaultMessage: message,
         );
 
-        return ValidationException(message: currentMessage, code: currentCode);
+        return ValidationException(
+          message: currentMessage,
+          code: currentCode,
+          key: key,
+        );
       },
     );
   }
@@ -124,7 +132,11 @@ extension MustHaveSpecialCharacterOrNullableValidation
           defaultMessage: message,
         );
 
-        return ValidationException(message: currentMessage, code: currentCode);
+        return ValidationException(
+          message: currentMessage,
+          code: currentCode,
+          key: key,
+        );
       },
     );
   }

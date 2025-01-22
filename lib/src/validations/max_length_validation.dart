@@ -42,7 +42,11 @@ extension MaxLengthValidation on SimpleValidationBuilder<String> {
           defaultMessage: message,
         );
 
-        return ValidationException(message: currentMessage, code: currentCode);
+        return ValidationException(
+          message: currentMessage,
+          code: currentCode,
+          key: key,
+        );
       },
     );
   }
@@ -86,7 +90,11 @@ extension MaxLengthNullableValidation on SimpleValidationBuilder<String?> {
           defaultMessage: message,
         );
 
-        return ValidationException(message: currentMessage, code: currentCode);
+        return ValidationException(
+          message: currentMessage,
+          code: currentCode,
+          key: key,
+        );
       },
     );
   }
@@ -130,7 +138,11 @@ extension MaxLengthOrNullableValidation on SimpleValidationBuilder<String?> {
           defaultMessage: message,
         );
 
-        return ValidationException(message: currentMessage, code: currentCode);
+        return ValidationException(
+          message: currentMessage,
+          code: currentCode,
+          key: key,
+        );
       },
     );
   }

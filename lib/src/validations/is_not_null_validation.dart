@@ -36,7 +36,11 @@ extension IsNotNullValidation<T extends Object> on SimpleValidationBuilder<T?> {
           defaultMessage: message,
         );
 
-        return ValidationException(message: currentMessage, code: currentCode);
+        return ValidationException(
+          message: currentMessage,
+          code: currentCode,
+          key: key,
+        );
       },
     );
   }

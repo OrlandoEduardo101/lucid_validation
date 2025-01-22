@@ -34,7 +34,11 @@ extension ValidCEPValidation on SimpleValidationBuilder<String> {
         defaultMessage: message,
       );
 
-      return ValidationException(message: currentMessage, code: currentCode);
+      return ValidationException(
+        message: currentMessage,
+        code: currentCode,
+        key: key,
+      );
     });
   }
 }
@@ -75,7 +79,11 @@ extension ValidCEPNullableValidation on SimpleValidationBuilder<String?> {
         defaultMessage: message,
       );
 
-      return ValidationException(message: currentMessage, code: currentCode);
+      return ValidationException(
+        message: currentMessage,
+        code: currentCode,
+        key: key,
+      );
     });
   }
 }
@@ -116,7 +124,11 @@ extension ValidCEPOrNullableValidation on SimpleValidationBuilder<String?> {
         defaultMessage: message,
       );
 
-      return ValidationException(message: currentMessage, code: currentCode);
+      return ValidationException(
+        message: currentMessage,
+        code: currentCode,
+        key: key,
+      );
     });
   }
 }

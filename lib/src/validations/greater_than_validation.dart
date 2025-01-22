@@ -42,7 +42,11 @@ extension GreaterThanValidation on SimpleValidationBuilder<num> {
         defaultMessage: message,
       );
 
-      return ValidationException(message: currentMessage, code: currentCode);
+      return ValidationException(
+        message: currentMessage,
+        code: currentCode,
+        key: key,
+      );
     });
   }
 }
@@ -68,10 +72,10 @@ extension GreaterThanNullablealidation on SimpleValidationBuilder<num?> {
   /// - **{ComparisonValue}**: The value to compare against.
   ///
   SimpleValidationBuilder<num?> greaterThan(
-      num minValue, {
-        String? message,
-        String? code,
-      }) {
+    num minValue, {
+    String? message,
+    String? code,
+  }) {
     return use((value, entity) {
       if (value != null && value > minValue) return null;
 
@@ -85,7 +89,11 @@ extension GreaterThanNullablealidation on SimpleValidationBuilder<num?> {
         defaultMessage: message,
       );
 
-      return ValidationException(message: currentMessage, code: currentCode);
+      return ValidationException(
+        message: currentMessage,
+        code: currentCode,
+        key: key,
+      );
     });
   }
 }
@@ -111,10 +119,10 @@ extension GreaterThanOrNullableValidation on SimpleValidationBuilder<num?> {
   /// - **{ComparisonValue}**: The value to compare against.
   ///
   SimpleValidationBuilder<num?> greaterThanOrNull(
-      num minValue, {
-        String? message,
-        String? code,
-      }) {
+    num minValue, {
+    String? message,
+    String? code,
+  }) {
     return use((value, entity) {
       if (value == null || value > minValue) return null;
 
@@ -128,7 +136,11 @@ extension GreaterThanOrNullableValidation on SimpleValidationBuilder<num?> {
         defaultMessage: message,
       );
 
-      return ValidationException(message: currentMessage, code: currentCode);
+      return ValidationException(
+        message: currentMessage,
+        code: currentCode,
+        key: key,
+      );
     });
   }
 }

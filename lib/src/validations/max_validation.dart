@@ -41,7 +41,11 @@ extension MaxValidation on SimpleValidationBuilder<num> {
           defaultMessage: message,
         );
 
-        return ValidationException(message: currentMessage, code: currentCode);
+        return ValidationException(
+          message: currentMessage,
+          code: currentCode,
+          key: key,
+        );
       },
     );
   }
@@ -70,7 +74,7 @@ extension MaxNullableValidation on SimpleValidationBuilder<num?> {
   ///
   SimpleValidationBuilder<num?> max(num num, {String? message, String? code}) {
     return use(
-          (value, entity) {
+      (value, entity) {
         if (value != null && value <= num) return null;
 
         final currentCode = code ?? Language.code.max;
@@ -84,7 +88,11 @@ extension MaxNullableValidation on SimpleValidationBuilder<num?> {
           defaultMessage: message,
         );
 
-        return ValidationException(message: currentMessage, code: currentCode);
+        return ValidationException(
+          message: currentMessage,
+          code: currentCode,
+          key: key,
+        );
       },
     );
   }
@@ -111,9 +119,10 @@ extension MaxOrNullableValidation on SimpleValidationBuilder<num?> {
   /// - **{MaxValue}**: The maximum value.
   /// - **{PropertyValue}**: value entered.
   ///
-  SimpleValidationBuilder<num?> maxOrNull(num num, {String? message, String? code}) {
+  SimpleValidationBuilder<num?> maxOrNull(num num,
+      {String? message, String? code}) {
     return use(
-          (value, entity) {
+      (value, entity) {
         if (value == null || value <= num) return null;
 
         final currentCode = code ?? Language.code.max;
@@ -127,7 +136,11 @@ extension MaxOrNullableValidation on SimpleValidationBuilder<num?> {
           defaultMessage: message,
         );
 
-        return ValidationException(message: currentMessage, code: currentCode);
+        return ValidationException(
+          message: currentMessage,
+          code: currentCode,
+          key: key,
+        );
       },
     );
   }

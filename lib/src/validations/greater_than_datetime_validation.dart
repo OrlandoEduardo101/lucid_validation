@@ -47,7 +47,8 @@ extension GreaterThanDateTimeValidation on SimpleValidationBuilder<DateTime> {
   }
 }
 
-extension GreaterThanDateTimeNullableValidation on SimpleValidationBuilder<DateTime?> {
+extension GreaterThanDateTimeNullableValidation
+    on SimpleValidationBuilder<DateTime?> {
   /// Adds a validation rule that checks if the [DateTime?] is greater than [comparison].
   ///
   /// [comparison] is the date and time value must be greater than.
@@ -68,10 +69,10 @@ extension GreaterThanDateTimeNullableValidation on SimpleValidationBuilder<DateT
   /// - **{ComparisonValue}**: The value to compare against.
   ///
   SimpleValidationBuilder<DateTime?> greaterThan(
-      DateTime comparison, {
-        String? message,
-        String? code,
-      }) {
+    DateTime comparison, {
+    String? message,
+    String? code,
+  }) {
     return use((value, entity) {
       if (value != null && value.isAfter(comparison)) return null;
 
@@ -85,12 +86,17 @@ extension GreaterThanDateTimeNullableValidation on SimpleValidationBuilder<DateT
         defaultMessage: message,
       );
 
-      return ValidationException(message: currentMessage, code: currentCode);
+      return ValidationException(
+        message: currentMessage,
+        code: currentCode,
+        key: key,
+      );
     });
   }
 }
 
-extension GreaterThanDateTimeOrNullableValidation on SimpleValidationBuilder<DateTime?> {
+extension GreaterThanDateTimeOrNullableValidation
+    on SimpleValidationBuilder<DateTime?> {
   /// Adds a validation rule that checks if the [DateTime?] is greater than [comparison] or [null].
   ///
   /// [comparison] is the date and time value must be greater than.
@@ -111,10 +117,10 @@ extension GreaterThanDateTimeOrNullableValidation on SimpleValidationBuilder<Dat
   /// - **{ComparisonValue}**: The value to compare against.
   ///
   SimpleValidationBuilder<DateTime?> greaterThanOrNull(
-      DateTime comparison, {
-        String? message,
-        String? code,
-      }) {
+    DateTime comparison, {
+    String? message,
+    String? code,
+  }) {
     return use((value, entity) {
       if (value == null || value.isAfter(comparison)) return null;
 
@@ -128,7 +134,11 @@ extension GreaterThanDateTimeOrNullableValidation on SimpleValidationBuilder<Dat
         defaultMessage: message,
       );
 
-      return ValidationException(message: currentMessage, code: currentCode);
+      return ValidationException(
+        message: currentMessage,
+        code: currentCode,
+        key: key,
+      );
     });
   }
 }

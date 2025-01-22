@@ -35,12 +35,17 @@ extension ValidCreditCardValidation on SimpleValidationBuilder<String> {
         defaultMessage: message,
       );
 
-      return ValidationException(message: currentMessage, code: currentCode);
+      return ValidationException(
+        message: currentMessage,
+        code: currentCode,
+        key: key,
+      );
     });
   }
 }
 
-extension ValidCreditCardNullableValidation on SimpleValidationBuilder<String?> {
+extension ValidCreditCardNullableValidation
+    on SimpleValidationBuilder<String?> {
   /// Adds a validation rule that checks if the [String?] is a valid credit card number.
   ///
   /// This method uses the Luhn algorithm to verify the validity of a credit card number.
@@ -75,7 +80,11 @@ extension ValidCreditCardNullableValidation on SimpleValidationBuilder<String?> 
         defaultMessage: message,
       );
 
-      return ValidationException(message: currentMessage, code: currentCode);
+      return ValidationException(
+        message: currentMessage,
+        code: currentCode,
+        key: key,
+      );
     });
   }
 }
@@ -117,7 +126,11 @@ extension ValidCreditCardOrNullableValidation
         defaultMessage: message,
       );
 
-      return ValidationException(message: currentMessage, code: currentCode);
+      return ValidationException(
+        message: currentMessage,
+        code: currentCode,
+        key: key,
+      );
     });
   }
 }

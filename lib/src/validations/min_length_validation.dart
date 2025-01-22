@@ -41,7 +41,11 @@ extension MinLengthValidation on SimpleValidationBuilder<String> {
           defaultMessage: message,
         );
 
-        return ValidationException(message: currentMessage, code: currentCode);
+        return ValidationException(
+          message: currentMessage,
+          code: currentCode,
+          key: key,
+        );
       },
     );
   }
@@ -70,7 +74,7 @@ extension MinLengthNullableValidation on SimpleValidationBuilder<String?> {
   SimpleValidationBuilder<String?> minLength(int num,
       {String? message, String? code}) {
     return use(
-          (value, entity) {
+      (value, entity) {
         if (value != null && value.length >= num) return null;
 
         final currentCode = code ?? Language.code.minLength;
@@ -84,7 +88,11 @@ extension MinLengthNullableValidation on SimpleValidationBuilder<String?> {
           defaultMessage: message,
         );
 
-        return ValidationException(message: currentMessage, code: currentCode);
+        return ValidationException(
+          message: currentMessage,
+          code: currentCode,
+          key: key,
+        );
       },
     );
   }
@@ -113,7 +121,7 @@ extension MinLengthOrNullableValidation on SimpleValidationBuilder<String?> {
   SimpleValidationBuilder<String?> minLengthOrNull(int num,
       {String? message, String? code}) {
     return use(
-          (value, entity) {
+      (value, entity) {
         if (value == null || value.length >= num) return null;
 
         final currentCode = code ?? Language.code.minLength;
@@ -127,7 +135,11 @@ extension MinLengthOrNullableValidation on SimpleValidationBuilder<String?> {
           defaultMessage: message,
         );
 
-        return ValidationException(message: currentMessage, code: currentCode);
+        return ValidationException(
+          message: currentMessage,
+          code: currentCode,
+          key: key,
+        );
       },
     );
   }

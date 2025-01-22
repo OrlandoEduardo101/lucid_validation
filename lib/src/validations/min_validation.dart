@@ -41,7 +41,11 @@ extension MinValidation on SimpleValidationBuilder<num> {
           defaultMessage: message,
         );
 
-        return ValidationException(message: currentMessage, code: currentCode);
+        return ValidationException(
+          message: currentMessage,
+          code: currentCode,
+          key: key,
+        );
       },
     );
   }
@@ -70,7 +74,7 @@ extension MinNullableValidation on SimpleValidationBuilder<num?> {
   ///
   SimpleValidationBuilder<num?> min(num num, {String? message, String? code}) {
     return use(
-          (value, entity) {
+      (value, entity) {
         if (value != null && value >= num) return null;
 
         final currentCode = code ?? Language.code.min;
@@ -84,7 +88,11 @@ extension MinNullableValidation on SimpleValidationBuilder<num?> {
           defaultMessage: message,
         );
 
-        return ValidationException(message: currentMessage, code: currentCode);
+        return ValidationException(
+          message: currentMessage,
+          code: currentCode,
+          key: key,
+        );
       },
     );
   }
@@ -111,9 +119,10 @@ extension MinOrNullableValidation on SimpleValidationBuilder<num?> {
   /// - **{MinValue}**: The minimum value.
   /// - **{PropertyValue}**: value entered.
   ///
-  SimpleValidationBuilder<num?> minOrNull(num num, {String? message, String? code}) {
+  SimpleValidationBuilder<num?> minOrNull(num num,
+      {String? message, String? code}) {
     return use(
-          (value, entity) {
+      (value, entity) {
         if (value == null || value >= num) return null;
 
         final currentCode = code ?? Language.code.min;
@@ -127,7 +136,11 @@ extension MinOrNullableValidation on SimpleValidationBuilder<num?> {
           defaultMessage: message,
         );
 
-        return ValidationException(message: currentMessage, code: currentCode);
+        return ValidationException(
+          message: currentMessage,
+          code: currentCode,
+          key: key,
+        );
       },
     );
   }

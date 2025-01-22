@@ -35,7 +35,11 @@ extension ValidCnpjValidation on SimpleValidationBuilder<String> {
         defaultMessage: message,
       );
 
-      return ValidationException(message: currentMessage, code: currentCode);
+      return ValidationException(
+        message: currentMessage,
+        code: currentCode,
+        key: key,
+      );
     });
   }
 }
@@ -75,7 +79,11 @@ extension ValidCnpjNullableValidation on SimpleValidationBuilder<String?> {
         defaultMessage: message,
       );
 
-      return ValidationException(message: currentMessage, code: currentCode);
+      return ValidationException(
+        message: currentMessage,
+        code: currentCode,
+        key: key,
+      );
     });
   }
 }
@@ -102,7 +110,8 @@ extension ValidCnpjOrNullableValidation on SimpleValidationBuilder<String?> {
   /// String format args:
   /// - **{PropertyName}**: The name of the property.
   ///
-  SimpleValidationBuilder<String?> validCNPJOrNull({String? message, String? code}) {
+  SimpleValidationBuilder<String?> validCNPJOrNull(
+      {String? message, String? code}) {
     return use((value, entity) {
       if (value == null) return null;
       if (_validateCNPJ(value)) return null;
@@ -116,7 +125,11 @@ extension ValidCnpjOrNullableValidation on SimpleValidationBuilder<String?> {
         defaultMessage: message,
       );
 
-      return ValidationException(message: currentMessage, code: currentCode);
+      return ValidationException(
+        message: currentMessage,
+        code: currentCode,
+        key: key,
+      );
     });
   }
 }
