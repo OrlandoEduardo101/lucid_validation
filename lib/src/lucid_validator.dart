@@ -40,19 +40,36 @@ abstract class LucidValidator<E> {
   /// Example:
   /// ```dart
   ///
-  /// void callback(errors) {}
-  ///
   /// final validator = UserValidation();
-  /// final emailValidator = validator.byField(user, 'email', callback);
+  /// final emailValidator = validator.byField(user, 'email');
   /// String? validationResult = emailValidator('user@example.com');
   /// ```
-  String? Function([String?]) byField(E entity, String key, [Function(List<ValidationException>)? callback]) {
+  ///
+  /// or
+  /// ```dart
+  ///
+  /// void callback (errors) {}
+  ///
+  /// final validator = UserValidation();
+  /// final emailValidator = validator.byField(user, 'email', overrideCallback: callback);
+  /// emailValidator('user@example.com'); // return null when overrideCallback is not null
+  /// ```
+  String? Function([String?]) byField(
+    E entity,
+    String key, {
+    Function(List<ValidationException>)? overrideCallback,
+  }) {
     if (key.contains('.')) {
       final keys = key.split('.');
 
       final firstKey = keys.removeAt(0);
       final builder = _getBuilderByKey(firstKey);
       if (builder == null) {
+        if (overrideCallback != null) {
+          overrideCallback.call([]);
+          return ([_]) => null;
+        }
+
         return ([_]) => null;
       }
 
@@ -61,14 +78,24 @@ abstract class LucidValidator<E> {
       final builder = _getBuilderByKey(key);
 
       if (builder == null) {
+        if (overrideCallback != null) {
+          overrideCallback.call([]);
+          return ([_]) => null;
+        }
+
         return ([_]) => null;
       }
 
       return ([_]) {
         final errors = builder.executeRules(entity);
         if (errors.isNotEmpty) {
-          callback?.call(errors);
+          if (overrideCallback != null) {
+            overrideCallback.call(errors);
+          }
           return errors.first.message;
+        }
+        if (overrideCallback != null) {
+          overrideCallback.call([]);
         }
         return null;
       };

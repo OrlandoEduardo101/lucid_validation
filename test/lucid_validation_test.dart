@@ -141,13 +141,13 @@ void main() {
     expect(codes[1], 'validEmail');
   });
 
-  test('byField with callback', () {
+  test('byField with override callback', () {
     var user = UserModel();
 
     final validator = UserValidator();
     List<String> codes = [];
 
-    validator.byField(user, 'email', (exceptions) {
+    validator.byField(user, 'email', overrideCallback: (exceptions) {
       codes = exceptions.map((exception) => exception.code).toList();
     })();
 
