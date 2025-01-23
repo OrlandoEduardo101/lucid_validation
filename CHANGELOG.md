@@ -1,3 +1,7 @@
+## 1.2.4
+
+* Fix overrideCallback in byField
+
 ## 1.2.3
 
 * Added overrideCallback in byField 

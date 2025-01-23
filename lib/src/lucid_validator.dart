@@ -91,6 +91,7 @@ abstract class LucidValidator<E> {
         if (errors.isNotEmpty) {
           if (overrideCallback != null) {
             overrideCallback.call(errors);
+            return null;
           }
           return errors.first.message;
         }
