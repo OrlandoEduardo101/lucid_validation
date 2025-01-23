@@ -117,6 +117,7 @@ Here’s a complete list of available validators you can use:
 - **validCPF**: Checks if a string is a valid CPF (for use in Brazil).
 - **validCNPJ**: Checks if a string is a valid CNPJ (for use in Brazil).
 - **validCEP**: Checks if a string is a valid CEP (for use in Brazil).
+- **validCPFOrCNPJ**: Checks if a string is a valid CPF or CNPJ (for use in Brazil).
 - **validCredCard**: Checks if a string is a valid Credit Card.
 - **greaterThanOrEqualTo**: Checks if the datetime value is greater than or equal to a specified minimum datetime.
 - **greaterThan**: Checks if the datetime value is greater than a specified minimum datetime.

@@ -26,7 +26,8 @@ abstract class LucidValidator<E> {
       TProp Function(E entity) selector,
       {required String key,
       String label = ''}) {
-    final builder = _LucidValidationBuilder<TProp, E>(key, label, selector, this);
+    final builder =
+        _LucidValidationBuilder<TProp, E>(key, label, selector, this);
     _builders.add(builder);
 
     return builder;
@@ -38,11 +39,14 @@ abstract class LucidValidator<E> {
   ///
   /// Example:
   /// ```dart
+  ///
+  /// void callback(errors) {}
+  ///
   /// final validator = UserValidation();
-  /// final emailValidator = validator.byField('email');
+  /// final emailValidator = validator.byField(user, 'email', callback);
   /// String? validationResult = emailValidator('user@example.com');
   /// ```
-  String? Function([String?]) byField(E entity, String key) {
+  String? Function([String?]) byField(E entity, String key, [Function(List<ValidationException>)? callback]) {
     if (key.contains('.')) {
       final keys = key.split('.');
 
@@ -63,6 +67,7 @@ abstract class LucidValidator<E> {
       return ([_]) {
         final errors = builder.executeRules(entity);
         if (errors.isNotEmpty) {
+          callback?.call(errors);
           return errors.first.message;
         }
         return null;
@@ -97,7 +102,8 @@ abstract class LucidValidator<E> {
 
     for (var builder in _builders) {
       exceptions.addAll(builder.executeRules(entity));
-      if(builder.getMode() == CascadeMode.stopOnFirstFailure && exceptions.isNotEmpty) {
+      if (builder.getMode() == CascadeMode.stopOnFirstFailure &&
+          exceptions.isNotEmpty) {
         break;
       }
     }
@@ -108,12 +114,28 @@ abstract class LucidValidator<E> {
     );
   }
 
+  /// **getExceptions**
+  ///
+  /// This function fetches and returns all validation exceptions associated with an entity.
+  ///
+  /// **Parameters:**
+  ///   * `entity`: The entity to be validated.
+  ///
+  /// **Return:**
+  ///   * A list of validation exceptions encountered.
+  ///
+  /// **Description:**
+  ///  The function iterates over all registered validation builders and executes the validation rules for each builder.
+  ///  Exceptions encountered are added to a list and returned at the end.
+  ///  If the cascade mode is set to 'stopOnFirstFailure', the function stops checking the remaining rules after the first exception.
+  ///
   List<ValidationException> getExceptions(E entity) {
     final List<ValidationException> exceptions = [];
 
     for (var builder in _builders) {
       exceptions.addAll(builder.executeRules(entity));
-      if(builder.getMode() == CascadeMode.stopOnFirstFailure && exceptions.isNotEmpty) {
+      if (builder.getMode() == CascadeMode.stopOnFirstFailure &&
+          exceptions.isNotEmpty) {
         break;
       }
     }
@@ -121,17 +143,30 @@ abstract class LucidValidator<E> {
     return exceptions;
   }
 
+  /// **getExceptions**
+  ///
+  /// This function fetches and returns all validation exceptions associated with an entity by key.
+  ///
+  /// **Parameters:**
+  ///   * `entity`: The entity to be validated.
+  ///   * `key`: key associated with validations.
+  ///
+  /// **Return:**
+  ///   * A list of validation exceptions encountered by key.
+  ///
+  /// **Description:**
+  ///  The function iterates over all registered validation builders and executes the validation rules for each builder.
+  ///  Exceptions encountered are added to a list and returned at the end.
+  ///  If the cascade mode is set to 'stopOnFirstFailure', the function stops checking the remaining rules after the first exception.
+  ///
   List<ValidationException> getExceptionsByKey(E entity, String key) {
-    final List<ValidationException> exceptions = [];
+    final builder = _getBuilderByKey(key);
 
-    for (var builder in _builders) {
-      exceptions.addAll(builder.executeRules(entity));
-      if(builder.getMode() == CascadeMode.stopOnFirstFailure && exceptions.isNotEmpty) {
-        break;
-      }
-    }
+    if (builder == null) return [];
 
-    return exceptions.where((exception) => exception.key == key).toList();
+    final exceptions = builder.executeRules(entity);
+
+    return exceptions.isNotEmpty ? exceptions : [];
   }
 }
 

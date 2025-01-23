@@ -9,6 +9,7 @@ class UserModel {
   int age = 0;
   String phone = '';
   String? cpf = '';
+  String? cpfOrCnpj = '';
 }
 
 class UserNullableModel {

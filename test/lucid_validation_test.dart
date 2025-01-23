@@ -140,4 +140,19 @@ void main() {
     expect(codes[0], 'notEmpty');
     expect(codes[1], 'validEmail');
   });
+
+  test('byField with callback', () {
+    var user = UserModel();
+
+    final validator = UserValidator();
+    List<String> codes = [];
+
+    validator.byField(user, 'email', (exceptions) {
+      codes = exceptions.map((exception) => exception.code).toList();
+    })();
+
+    expect(codes.length, 2);
+    expect(codes[0], 'notEmpty');
+    expect(codes[1], 'validEmail');
+  });
 }

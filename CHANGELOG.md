@@ -1,3 +1,7 @@
+## 1.2.2
+
+* Added validCPFOrCNPJ
+
 ## 1.2.1
 
 * Added getExceptions and getExceptionsByKey
