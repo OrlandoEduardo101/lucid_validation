@@ -19,4 +19,8 @@ class ValidationResult {
     required this.isValid,
     required this.exceptions,
   });
+
+  List<Map<String, dynamic>> exceptionToJson() {
+    return exceptions.map((e) => e.toJson()).toList();
+  }
 }

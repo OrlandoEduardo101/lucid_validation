@@ -2,7 +2,7 @@
 ///
 /// [ValidationException] provides details about the validation error, including
 /// an optional key that identifies which field or property the error is associated with.
-class ValidationException {
+class ValidationException implements Exception {
   /// The error message describing what went wrong during validation.
   final String message;
 
@@ -21,4 +21,12 @@ class ValidationException {
     required this.code,
     this.key = '',
   });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'message': message,
+      if (key.isNotEmpty) 'key': key,
+      if (code.isNotEmpty) 'code': code,
+    };
+  }
 }

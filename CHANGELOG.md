@@ -1,3 +1,6 @@
+## 1.2.5
+* Aded Exception serialization
+
 ## 1.2.4
 
 * Fix overrideCallback in byField
